@@ -20,9 +20,6 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Chris Lefebvre 
  * Kristina Mantha
- *
- *
- *
  */
 
 /*
@@ -43,12 +40,12 @@ import javax.ws.rs.core.MediaType;
 public class IST411L07GroupWork {
 
     private EntityManager entityManager;
-
+    
     /**
      * @param args the command line arguments
+     * The URLs below demonstrate the appearance of the URLs that would be seen in the database/website
      */
     public static void main(String[] args) {
-
         try {
             //CREATE
             URL loginURL = new URL("www.payme.com/auth/Token/v3");
@@ -60,14 +57,19 @@ public class IST411L07GroupWork {
             URL transactionAllURL = new URL("www.payme.com/transactions/v4/all");
             //UPDATE & DELETE
             URL paymentURL = new URL("www.payme.com/paymentcheckout/v3/order/48");
-
         } catch (MalformedURLException e) {
         }
-
-        System.out.println("Type in what you wish to test");
-        System.out.println("[1]CREATE order, [2] READ order, [3] UPDATE order, [4] DELETE order");
-
+//        System.out.println("Type in what you wish to test");
+//        System.out.println("[1]CREATE order, [2] READ order, [3] UPDATE order, [4] DELETE order");
     }
+    /*
+    login is a GET method takes two parameters, user and password, 
+    that both can only take certain kinds of characters through the use of PathParam
+    Depending on if it is authenticated or not (method truncated) either the user
+    can move forward or a notification is sent to the user and they must try again
+    @param user
+    @param password
+    */
 
     @GET
     @Path("{user: [a-zA-Z][a-zA-Z_0-9]}/password:[a-zA-Z][a-zA-Z_0-9]")
@@ -80,6 +82,11 @@ public class IST411L07GroupWork {
             System.out.println(user + "cannot be authenticated.");
         }
     }
+    /*
+    createOrder is a POST method that creates an order entity through the use 
+    of the @FormParam
+    @param orderId
+    */
 
     @POST
     @Path("form")
@@ -87,37 +94,62 @@ public class IST411L07GroupWork {
         Order entity = new Order();
         entity.setOrderId(orderId);
         entityManager.persist(entity);
+    }
+    
+    
 
+    @GET
+    @Path("paymentcheckout/v3/order/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public void readOrder(@PathParam("orderId") Short orderId) {
+        //read transaction from the data store
+    }
+    
+    /*
+    findOrder demonstrates the use of the @Produces annotation and allows the user
+    to have a single order returned to them by its orderId
+    @param orderId
+    */
+    @GET
+    @Path("{orderId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Order findOrder(@PathParam("orderId") Short orderId){
+        return entityManager.find(Order.class, orderId);
     }
 
     @GET
-    @Path("paymentcheckout/v3/order")
     @Produces(MediaType.APPLICATION_JSON)
-    public void readOrder(@PathParam("orderId") Short orderId) {
-
-        entityManager.getTransaction();
+    public List<Order> readAllOrders(){
+        CriteriaQuery cq = entityManager.getCriteriaBuilder().createQuery();
+        cq.select(cq.from(Order.class));
+        List<Order> orders = entityManager.createQuery(cq).getResultList();
+        return orders;
     }
-
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public List<Order> readAllOrders(){
-////        CriteriaQuery cq = entityManager.getCriteriaBuilder().createQuery();
-////        cq.select(cq.from(Order.class));
-////        List<Order> orders = entityManager.createQuery(cq).getResultList();
-////        return orders;
-//    }
+    /*
+    updateOrer is a PUT method that that allows the an instance of an Order to 
+    be replaced with new data
+    @param orderId
+    @param entity
+    */
     @PUT
-    @Path("orderId")
+    @Path("paymentcheckout/v3/order/")
     public void updateOrder(@PathParam("orderId") Short orderId, Order entity) {
         entityManager.merge(entity);
     }
-
+    
+    /*
+    deleteOrder is a @Delete Method that allows for an entity with the order the
+    orderId number to be deleted.
+    @param orderId
+    */
     @DELETE
-    @Path("paymentcheckout/v3/order")
-    public void deleteOrder(@PathParam("order_id") Short order_id) {
+    @Path("paymentcheckout/v3/order/")
+    public void deleteOrder(@PathParam("orderId") Short orderId) {
         //remove the order from the data store
-        entityManager.remove(order_id);
+        entityManager.remove(orderId);
     }
+    
+    
 
     @GET
     @Path("orderId")
@@ -125,6 +157,7 @@ public class IST411L07GroupWork {
         //read transaction from the data store
     }
 
+    
     public boolean authenticate(String user, String password) {
         boolean bol = false;
         /*
