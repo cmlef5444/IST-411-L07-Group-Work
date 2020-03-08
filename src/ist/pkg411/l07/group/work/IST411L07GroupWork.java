@@ -5,9 +5,11 @@
  */
 package ist.pkg411.l07.group.work;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.Query;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -30,11 +32,25 @@ import javax.ws.rs.core.MediaType;
 public class IST411L07GroupWork {
    
     private EntityManager entityManager;
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        try{
+            //CREATE
+            URL loginURL = new URL ("www.payme.com/auth/Token/v3");
+            URL logoutURL = new URL ("www.payme.com/auth/logout");
+            URL orderURL = new URL ("www.payme.com/cart/v3/order/48");
+            //READ
+            URL orderAllURL = new URL ("www.payme.com/cart/v3/order/all");
+            URL transactionURL = new URL ("www.payme.com/transactions/v4/48");
+            URL transactionAllURL = new URL ("www.payme.com/transactions/v4/all");
+            //UPDATE & DELETE
+            URL paymentURL = new URL ("www.payme.com/paymentcheckout/v3/order/48");
+        
+        }catch(MalformedURLException e){}
     }
     
     /*
@@ -67,14 +83,14 @@ public class IST411L07GroupWork {
         
     }
     
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Order> readAllOrders(){
-        CriteriaQuery cq = entityManager..getCriteriaBuilder().createQuery();
-        cq.select(cq.from(Order.class));
-        List<Order> orders = entityManager.createQuery(cq).getResultList();
-        return orders;
-    }
+//    @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public List<Order> readAllOrders(){
+////        CriteriaQuery cq = entityManager.getCriteriaBuilder().createQuery();
+////        cq.select(cq.from(Order.class));
+////        List<Order> orders = entityManager.createQuery(cq).getResultList();
+////        return orders;
+//    }
     
     @PUT
     @Path("orderId")
