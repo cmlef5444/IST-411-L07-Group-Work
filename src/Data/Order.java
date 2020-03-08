@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ist.pkg411.l07.group.work;
+package Data;
 
 
 import com.sun.istack.internal.NotNull;
@@ -35,12 +35,19 @@ public class Order implements Serializable{
     
     /*
     private int order_id;
+    @Column(name = "sender_last_name")
     private String senderLastName;
+    @Column (name = "sender_first_name")
     private String senderFirstName;
+    @Column (name = "sender_ID")
     private int senderID;
+    @Column (name = "recipient_last_name")
     private String recipientLastName;
+    @Column (name = "recipient_first_name")
     private String recipientFirstName;
+    @Column (name = "recipient_id")
     private int recipientID;
+    @Column (name = "transaction_amount")
     private double transactionAmount;
     */
     

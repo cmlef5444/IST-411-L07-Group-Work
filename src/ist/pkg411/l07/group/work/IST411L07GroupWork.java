@@ -5,6 +5,7 @@
  */
 package ist.pkg411.l07.group.work;
 
+import Data.Order;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -29,6 +30,23 @@ import javax.ws.rs.core.MediaType;
  * 
  * 
  */
+
+/*
+    Create
+        Login - Post: payme.com/auth/Token/v3/
+        Logout - Post: payme.com/auth/logout
+        Order - Post: payme.com/cart/v3/order/{order_id}
+    Read
+        Get: payme.com/paymentcheckout/v3/order/{order_id}
+        Get: payme.com/paymentcheckout/v3/order/all
+        Get: payme.com/transactions/v4/{Transaction_id}
+        Get: payme.com/transactions/v4/all
+    Update
+        Put: payme.com/paymentcheckout/v3/order/{order_id}
+    Delete
+        Delete: payme.com/paymentCheckout/v3/order/{order_id}
+    */
+
 public class IST411L07GroupWork {
    
     private EntityManager entityManager;
@@ -51,23 +69,14 @@ public class IST411L07GroupWork {
             URL paymentURL = new URL ("www.payme.com/paymentcheckout/v3/order/48");
         
         }catch(MalformedURLException e){}
+        
+        System.out.println("Type in what you wish to test");
+        System.out.println("[1]CREATE order, [2] READ order, [3] UPDATE order, [4] DELETE order");
+    
+        
     }
     
-    /*
-    Create
-        Login - Post: payme.com/auth/Token/v3/
-        Logout - Post: payme.com/auth/logout
-        Order - Post: payme.com/cart/v3/order/{order_id}
-    Read
-        Get: payme.com/paymentcheckout/v3/order/{order_id}
-        Get: payme.com/paymentcheckout/v3/order/all
-        Get: payme.com/transactions/v4/{Transaction_id}
-        Get: payme.com/transactions/v4/all
-    Update
-        Put: payme.com/paymentcheckout/v3/order/{order_id}
-    Delete
-        Delete: payme.com/paymentCheckout/v3/order/{order_id}
-    */
+    
     @POST
     @Path("form")
     public void createOrder(@FormParam("orderId") short orderId){
