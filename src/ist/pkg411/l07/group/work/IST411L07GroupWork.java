@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ist.pkg411.l07.group.work;
 
 import Data.Order;
@@ -23,84 +18,86 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author Chris Lefebvre
- * 
- * 
- * 
- * 
- * 
+ * @author Chris Lefebvre 
+ * Kristina Mantha
+ *
+ *
+ *
  */
 
 /*
-    Create
-        Login - Post: payme.com/auth/Token/v3/
-        Logout - Post: payme.com/auth/logout
-        Order - Post: payme.com/cart/v3/order/{order_id}
-    Read
-        Get: payme.com/paymentcheckout/v3/order/{order_id}
-        Get: payme.com/paymentcheckout/v3/order/all
-        Get: payme.com/transactions/v4/{Transaction_id}
-        Get: payme.com/transactions/v4/all
-    Update
-        Put: payme.com/paymentcheckout/v3/order/{order_id}
-    Delete
-        Delete: payme.com/paymentCheckout/v3/order/{order_id}
-    */
-
+ Create
+ Login - Post: payme.com/auth/Token/v3/
+ Logout - Post: payme.com/auth/logout
+ Order - Post: payme.com/cart/v3/order/{order_id}
+ Read
+ Get: payme.com/paymentcheckout/v3/order/{order_id}
+ Get: payme.com/paymentcheckout/v3/order/all
+ Get: payme.com/transactions/v4/{Transaction_id}
+ Get: payme.com/transactions/v4/all
+ Update
+ Put: payme.com/paymentcheckout/v3/order/{order_id}
+ Delete
+ Delete: payme.com/paymentCheckout/v3/order/{order_id}
+ */
 public class IST411L07GroupWork {
-   
+
     private EntityManager entityManager;
-    
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        try{
+
+        try {
             //CREATE
-            URL loginURL = new URL ("www.payme.com/auth/Token/v3");
-            URL logoutURL = new URL ("www.payme.com/auth/logout");
-            URL orderURL = new URL ("www.payme.com/cart/v3/order/48");
+            URL loginURL = new URL("www.payme.com/auth/Token/v3");
+            URL logoutURL = new URL("www.payme.com/auth/logout");
+            URL orderURL = new URL("www.payme.com/cart/v3/order/48");
             //READ
-            URL orderAllURL = new URL ("www.payme.com/cart/v3/order/all");
-            URL transactionURL = new URL ("www.payme.com/transactions/v4/48");
-            URL transactionAllURL = new URL ("www.payme.com/transactions/v4/all");
+            URL orderAllURL = new URL("www.payme.com/cart/v3/order/all");
+            URL transactionURL = new URL("www.payme.com/transactions/v4/48");
+            URL transactionAllURL = new URL("www.payme.com/transactions/v4/all");
             //UPDATE & DELETE
-            URL paymentURL = new URL ("www.payme.com/paymentcheckout/v3/order/48");
-        
-        }catch(MalformedURLException e){}
-        
+            URL paymentURL = new URL("www.payme.com/paymentcheckout/v3/order/48");
+
+        } catch (MalformedURLException e) {
+        }
+
         System.out.println("Type in what you wish to test");
         System.out.println("[1]CREATE order, [2] READ order, [3] UPDATE order, [4] DELETE order");
-    
-        
+
     }
+
     @GET
     @Path("{user: [a-zA-Z][a-zA-Z_0-9]}/password:[a-zA-Z][a-zA-Z_0-9]")
-    public void login (@PathParam("user") String user, @PathParam("password") String password){        
-        if(authenticate(user, password)== true){
+    public void login(@PathParam("user") String user, @PathParam("password") String password) {
+        if (authenticate(user, password) == true) {
             //authentication passed, continue on
-        }
-        else{
+            System.out.println("User Authenticated");
+        } else {
             //authentication failed, notify user
-        } 
+            System.out.println(user + "cannot be authenticated.");
+        }
     }
-    
+
     @POST
     @Path("form")
-    public void createOrder(@FormParam("orderId") short orderId){
+    public void createOrder(@FormParam("orderId") Short orderId) {
         Order entity = new Order();
         entity.setOrderId(orderId);
         entityManager.persist(entity);
 
     }
-    
+
     @GET
-    @Path("orderId")
-    public void readOrder(@PathParam("orderId") Short orderId){
-        
+    @Path("paymentcheckout/v3/order")
+    @Produces(MediaType.APPLICATION_JSON)
+    public void readOrder(@PathParam("orderId") Short orderId) {
+
+        entityManager.getTransaction();
     }
-    
+
 //    @GET
 //    @Produces(MediaType.APPLICATION_JSON)
 //    public List<Order> readAllOrders(){
@@ -109,33 +106,31 @@ public class IST411L07GroupWork {
 ////        List<Order> orders = entityManager.createQuery(cq).getResultList();
 ////        return orders;
 //    }
-    
     @PUT
     @Path("orderId")
-    public void updateOrder(@PathParam("orderId") Short orderId, Order entity){
+    public void updateOrder(@PathParam("orderId") Short orderId, Order entity) {
         entityManager.merge(entity);
     }
-    
+
     @DELETE
-    @Path("orderId")
-    public void deleteOrder(@PathParam("orderId") Short orderId){
-        
+    @Path("paymentcheckout/v3/order")
+    public void deleteOrder(@PathParam("order_id") Short order_id) {
+        //remove the order from the data store
+        entityManager.remove(order_id);
     }
-    
+
     @GET
     @Path("orderId")
-    public void readTransaction(@PathParam("orderId)") Short orderId){
-        
+    public void readTransaction(@PathParam("orderId)") Short orderId) {
+        //read transaction from the data store
     }
-    
-    public boolean  authenticate(String user, String password){
+
+    public boolean authenticate(String user, String password) {
         boolean bol = false;
-         /*
-        Code to check database for user and password
-        */
+        /*
+         Code to check database for user and password
+         */
         return bol;
     }
-    
-    
-    
+
 }

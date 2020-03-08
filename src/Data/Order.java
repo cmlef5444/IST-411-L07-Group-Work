@@ -5,7 +5,6 @@
  */
 package Data;
 
-
 import com.sun.istack.internal.NotNull;
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -26,46 +25,48 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Orders.findByOrderId", query = "SELECT d FROM Order d WHERE d.orderID = :orderId")
 })
 
-public class Order implements Serializable{
+public class Order implements Serializable {
+
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "ORDER_ID")
     private short orderId;
-    
+
     /*
-    private int order_id;
-    @Column(name = "sender_last_name")
-    private String senderLastName;
-    @Column (name = "sender_first_name")
-    private String senderFirstName;
-    @Column (name = "sender_ID")
-    private int senderID;
-    @Column (name = "recipient_last_name")
-    private String recipientLastName;
-    @Column (name = "recipient_first_name")
-    private String recipientFirstName;
-    @Column (name = "recipient_id")
-    private int recipientID;
-    @Column (name = "transaction_amount")
-    private double transactionAmount;
-    */
-    
-    public Order(){
-        
+     private int order_id;
+     @Column(name = "sender_last_name")
+     private String senderLastName;
+     @Column (name = "sender_first_name")
+     private String senderFirstName;
+     @Column (name = "sender_ID")
+     private int senderID;
+     @Column (name = "recipient_last_name")
+     private String recipientLastName;
+     @Column (name = "recipient_first_name")
+     private String recipientFirstName;
+     @Column (name = "recipient_id")
+     private int recipientID;
+     @Column (name = "transaction_amount")
+     private double transactionAmount;
+     */
+    public Order() {
+
     }
-    
-    public Order(short orderID /*int order_id, String senderLastName, String senderFirstName, int senderID, String recipientLastName, String recipientFirstName, int recipientID, double transactionAmount*/){
-       /* 
-        this.order_id = order_id;
-        this.senderLastName = senderLastName;
-        this.senderFirstName = senderFirstName;
-        this.senderID = senderID;
-        this.recipientLastName = recipientLastName;
-        this.recipientFirstName = recipientFirstName;
-        this.recipientID = recipientID;
-        this.transactionAmount = transactionAmount;
-        */
+
+    public Order(short orderID /*int order_id, String senderLastName, 
+     String senderFirstName, int senderID, String recipientLastName, 
+     String recipientFirstName, int recipientID, double transactionAmount*/) {
+        /* 
+         this.order_id = order_id;
+         this.senderLastName = senderLastName;
+         this.senderFirstName = senderFirstName;
+         this.senderID = senderID;
+         this.recipientLastName = recipientLastName;
+         this.recipientFirstName = recipientFirstName;
+         this.recipientID = recipientID;
+         this.transactionAmount = transactionAmount;
+         */
     }
 //    
 //    /**
