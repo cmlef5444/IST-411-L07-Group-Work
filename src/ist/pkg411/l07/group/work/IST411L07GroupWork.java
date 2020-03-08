@@ -75,7 +75,16 @@ public class IST411L07GroupWork {
     
         
     }
-    
+    @GET
+    @Path("{user: [a-zA-Z][a-zA-Z_0-9]}/password:[a-zA-Z][a-zA-Z_0-9]")
+    public void login (@PathParam("user") String user, @PathParam("password") String password){        
+        if(authenticate(user, password)== true){
+            //authentication passed, continue on
+        }
+        else{
+            //authentication failed, notify user
+        } 
+    }
     
     @POST
     @Path("form")
@@ -117,6 +126,14 @@ public class IST411L07GroupWork {
     @Path("orderId")
     public void readTransaction(@PathParam("orderId)") Short orderId){
         
+    }
+    
+    public boolean  authenticate(String user, String password){
+        boolean bol = false;
+         /*
+        Code to check database for user and password
+        */
+        return bol;
     }
     
     
