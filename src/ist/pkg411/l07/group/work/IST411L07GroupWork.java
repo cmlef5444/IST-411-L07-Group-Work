@@ -1,6 +1,7 @@
 package ist.pkg411.l07.group.work;
 
 import Data.Order;
+import Data.Transaction;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -98,7 +99,6 @@ public class IST411L07GroupWork {
         entityManager.persist(entity);
     }
     
-    
     /*
     
     */
@@ -128,8 +128,7 @@ public class IST411L07GroupWork {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Order> findAllOrders(){
-        CriteriaQuery cq = entityManager.getCriteriaBuilder().createQuery();
-        
+        CriteriaQuery cq = entityManager.getCriteriaBuilder().createQuery();        
         cq.select(cq.from(Order.class));
         List<Order> orders = entityManager.createQuery(cq.toString()).getResultList();
         return orders;
@@ -159,11 +158,16 @@ public class IST411L07GroupWork {
     }
     
     
-
+    /*
+    readTransaction() is a GET statement that outputs the value of a single transaction as a string
+    */
     @GET
-    @Path("orderId")
-    public void readTransaction(@PathParam("orderId)") Short orderId) {
+    @Path("transactionID")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String readTransaction(@PathParam("transactionID)") Short transactionID) {
         //read transaction from the data store
+        return entityManager.find(Transaction.class, transactionID).toString();
+        
     }
 
     

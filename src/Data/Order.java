@@ -34,7 +34,6 @@ public class Order implements Serializable {
     private short orderId;
 
     /*
-     private int order_id;
      @Column(name = "sender_last_name")
      private String senderLastName;
      @Column (name = "sender_first_name")
