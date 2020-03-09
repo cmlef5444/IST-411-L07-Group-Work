@@ -176,6 +176,8 @@ public class IST411L07GroupWork {
     /*
     authenticate() reads data from the database and checks if the username and password are correct
     it then returns a boolean value based on that check
+    @param user
+    @param password
     */    
     public boolean authenticate(String user, String password) {
         boolean bol;
@@ -184,7 +186,7 @@ public class IST411L07GroupWork {
         Requires Auth class to be implmented
          */
         if(user.equals(Auth.checkUser())){
-           if(Auth.checkUserPassword(user)){
+           if(Auth.checkUserPassword(password)){
                bol = true;           
             }else{
                bol = false;

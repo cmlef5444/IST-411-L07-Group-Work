@@ -19,7 +19,7 @@ class Auth {
         String check = "";
         return check;
     }
-    public static Boolean checkUserPassword(String user){
+    public static Boolean checkUserPassword(String password){
         boolean bol = false;
         return bol;
     }
