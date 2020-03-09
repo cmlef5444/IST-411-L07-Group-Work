@@ -23,6 +23,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Chris Lefebvre 
  * Kristina Mantha
+ * Sam Janvey
  */
 
 /*
@@ -100,7 +101,8 @@ public class IST411L07GroupWork {
     }
     
     /*
-    
+    readOrder() is a GET method that returns an order value as a string
+    @param orderId
     */
     @GET
     @Path("paymentcheckout/v3/order/")
@@ -160,6 +162,7 @@ public class IST411L07GroupWork {
     
     /*
     readTransaction() is a GET statement that outputs the value of a single transaction as a string
+    @param transactionID
     */
     @GET
     @Path("transactionID")
@@ -170,13 +173,27 @@ public class IST411L07GroupWork {
         
     }
 
-    
+    /*
+    authenticate() reads data from the database and checks if the username and password are correct
+    it then returns a boolean value based on that check
+    */    
     public boolean authenticate(String user, String password) {
-        boolean bol = false;
+        boolean bol;
         /*
          Code to check database for user and password
+        Requires Auth class to be implmented
          */
+        if(user.equals(Auth.checkUser())){
+           if(Auth.checkUserPassword(user)){
+               bol = true;           
+            }else{
+               bol = false;
+                System.out.println("Username and/orPassword is incorrect");
+            }
+        } else{
+            bol = false;
+            System.out.println("Username and/or password is incorrect");
+        }        
         return bol;
     }
-
 }
