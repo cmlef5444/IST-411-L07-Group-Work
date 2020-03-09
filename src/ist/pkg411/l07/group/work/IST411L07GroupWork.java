@@ -6,6 +6,8 @@ import java.net.URL;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -44,6 +46,7 @@ public class IST411L07GroupWork {
     /**
      * @param args the command line arguments
      * The URLs below demonstrate the appearance of the URLs that would be seen in the database/website
+     * @Param (unused) URL examples
      */
     public static void main(String[] args) {
         try {
@@ -63,14 +66,13 @@ public class IST411L07GroupWork {
 //        System.out.println("[1]CREATE order, [2] READ order, [3] UPDATE order, [4] DELETE order");
     }
     /*
-    login is a GET method takes two parameters, user and password, 
+    login() is a GET method takes two parameters, user and password, 
     that both can only take certain kinds of characters through the use of PathParam
     Depending on if it is authenticated or not (method truncated) either the user
     can move forward or a notification is sent to the user and they must try again
     @param user
     @param password
     */
-
     @GET
     @Path("{user: [a-zA-Z][a-zA-Z_0-9]}/password:[a-zA-Z][a-zA-Z_0-9]")
     public void login(@PathParam("user") String user, @PathParam("password") String password) {
@@ -82,12 +84,12 @@ public class IST411L07GroupWork {
             System.out.println(user + "cannot be authenticated.");
         }
     }
+    
     /*
-    createOrder is a POST method that creates an order entity through the use 
+    createOrder() is a POST method that creates an order entity through the use 
     of the @FormParam
     @param orderId
     */
-
     @POST
     @Path("form")
     public void createOrder(@FormParam("orderId") Short orderId) {
@@ -97,7 +99,9 @@ public class IST411L07GroupWork {
     }
     
     
-
+    /*
+    
+    */
     @GET
     @Path("paymentcheckout/v3/order/")
     @Produces(MediaType.APPLICATION_JSON)
@@ -106,7 +110,7 @@ public class IST411L07GroupWork {
     }
     
     /*
-    findOrder demonstrates the use of the @Produces annotation and allows the user
+    findOrder() demonstrates the use of the @Produces annotation and allows the user
     to have a single order returned to them by its orderId
     @param orderId
     */
@@ -116,17 +120,22 @@ public class IST411L07GroupWork {
     public Order findOrder(@PathParam("orderId") Short orderId){
         return entityManager.find(Order.class, orderId);
     }
-
+    
+    /*
+    findAllOrders() is similar to findOrder() except is returns the full list of orders
+    it uses a CriteriaQuery as used in the textbook to build then output into a List
+    */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Order> readAllOrders(){
+    public List<Order> findAllOrders(){
         CriteriaQuery cq = entityManager.getCriteriaBuilder().createQuery();
+        
         cq.select(cq.from(Order.class));
-        List<Order> orders = entityManager.createQuery(cq).getResultList();
+        List<Order> orders = entityManager.createQuery(cq.toString()).getResultList();
         return orders;
     }
     /*
-    updateOrer is a PUT method that that allows the an instance of an Order to 
+    updateOrder() is a PUT method that that allows the an instance of an Order to 
     be replaced with new data
     @param orderId
     @param entity
@@ -138,7 +147,7 @@ public class IST411L07GroupWork {
     }
     
     /*
-    deleteOrder is a @Delete Method that allows for an entity with the order the
+    deleteOrder() is a @Delete Method that allows for an entity with the order the
     orderId number to be deleted.
     @param orderId
     */
