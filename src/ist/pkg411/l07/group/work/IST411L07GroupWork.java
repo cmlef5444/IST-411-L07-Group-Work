@@ -24,9 +24,11 @@ import javax.ws.rs.core.MediaType;
  * @author Chris Lefebvre 
  * Kristina Mantha
  * Sam Janvey
+ * Gregory Ramos
  */
 
 /*
+Required CRUD
  Create
  Login - Post: payme.com/auth/Token/v3/
  Logout - Post: payme.com/auth/logout
@@ -41,6 +43,12 @@ import javax.ws.rs.core.MediaType;
  Delete
  Delete: payme.com/paymentCheckout/v3/order/{order_id}
  */
+
+/*
+The purpose of this program is to demonstrate the coding that would be used in a 
+JAX-RS program, These methods are based off the RESTful API assignemnt from L05
+where we created a peer-to-peer payment application.
+*/
 public class IST411L07GroupWork {
 
     private EntityManager entityManager;
@@ -68,7 +76,7 @@ public class IST411L07GroupWork {
 //        System.out.println("[1]CREATE order, [2] READ order, [3] UPDATE order, [4] DELETE order");
     }
     /*
-    login() is a GET method takes two parameters, user and password, 
+    login() is a @GET method takes two parameters, user and password, 
     that both can only take certain kinds of characters through the use of PathParam
     Depending on if it is authenticated or not (method truncated) either the user
     can move forward or a notification is sent to the user and they must try again
@@ -88,7 +96,7 @@ public class IST411L07GroupWork {
     }
     
     /*
-    createOrder() is a POST method that creates an order entity through the use 
+    createOrder() is a @POST method that creates an order entity through the use 
     of the @FormParam
     @param orderId
     */
@@ -101,7 +109,7 @@ public class IST411L07GroupWork {
     }
     
     /*
-    readOrder() is a GET method that returns an order value as a string
+    readOrder() is a @GET method that returns an order value as a string
     @param orderId
     */
     @GET
@@ -125,7 +133,8 @@ public class IST411L07GroupWork {
     
     /*
     findAllOrders() is similar to findOrder() except is returns the full list of orders
-    it uses a CriteriaQuery as used in the textbook to build then output into a List
+    it uses a CriteriaQuery as used in the textbook to build then output into a List.
+    We are unsure why the getCriteriaBuilder is not working as it did in the book example
     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -136,7 +145,7 @@ public class IST411L07GroupWork {
         return orders;
     }
     /*
-    updateOrder() is a PUT method that that allows the an instance of an Order to 
+    updateOrder() is a @PUT method that that allows the an instance of an Order to 
     be replaced with new data
     @param orderId
     @param entity
@@ -161,7 +170,7 @@ public class IST411L07GroupWork {
     
     
     /*
-    readTransaction() is a GET statement that outputs the value of a single transaction as a string
+    readTransaction() is a @GET statement that outputs the value of a single transaction as a string
     @param transactionID
     */
     @GET

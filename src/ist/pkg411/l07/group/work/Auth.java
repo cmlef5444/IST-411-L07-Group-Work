@@ -8,7 +8,12 @@ package ist.pkg411.l07.group.work;
 /**
  *
  * @author cjani
+ * 
+ * 
+ * 
+ * database would need to be implemented for the Auth class to take full affect
  */
+
 class Auth {
     
     public Auth(){
