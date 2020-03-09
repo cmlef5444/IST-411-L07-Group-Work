@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ist.pkg411.l07.group.work;
+package Pack;
 
 /**
  *

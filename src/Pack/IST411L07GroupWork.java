@@ -1,4 +1,4 @@
-package ist.pkg411.l07.group.work;
+package Pack;
 
 import Data.Order;
 import Data.Transaction;
@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -51,6 +52,7 @@ where we created a peer-to-peer payment application.
 */
 public class IST411L07GroupWork {
 
+//   @PersistenceContext(unitName = "Pack_war_1.0-SNAPSHOTPU")    
     private EntityManager entityManager;
     
     /**
